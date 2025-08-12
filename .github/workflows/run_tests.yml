@@ -1,1 +1,34 @@
+name: Run autotests
 
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploment_taeget:
+        description: select tests to run
+        required: true
+        type: choise
+        default: all
+        options: 
+          - all
+
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latests
+    name: Tests
+    steps: 
+    - name: Copy sours code
+      uses: actions/checkout@v4
+    - name: Set up Python env
+      uses: actions/setup-Python@v5
+      with:
+        python-version: "3.13" 
+    - name: install dependencies
+      run: pip install -r requirements.txt
+    - name : Run tests  
+      run: pytest -v
+
+            
+          
+    
